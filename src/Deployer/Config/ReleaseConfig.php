@@ -20,8 +20,52 @@ class ReleaseConfig
      */
     public static function register()
     {
+        \Deployer\set('release_path_app', function () { return ReleaseConfig::getReleasePathAppDir(); });
+        \Deployer\set('shared_path_app', function () { return ReleaseConfig::getSharedPathAppDir(); });
+
         \Deployer\set('release_name', function () { return ReleaseConfig::getReleaseName(); });
         \Deployer\set('releases_list', function () { return ReleaseConfig::getReleasesList(); });
+    }
+
+    /**
+     * @return string
+     */
+    public static function getReleasePathAppDir()
+    {
+        return self::buildAppPath('{{release_path}}');
+    }
+
+    /**
+     * @return string
+     */
+    public static function getSharedPathAppDir()
+    {
+        return self::buildAppPath('{{deploy_path}}/shared');
+    }
+
+    /**
+     * Get AppDir
+     *
+     * @return string
+     */
+    public static function getAppDir()
+    {
+        return \Deployer\get('app_dir');
+    }
+
+    /**
+     * @param string $appPath
+     *
+     * @return string
+     */
+    protected static function buildAppPath($appPath)
+    {
+        $appdir = self::getAppDir();
+        if (!empty($appdir)) {
+            $appPath .= "/$appdir";
+        }
+
+        return $appPath;
     }
 
     /**
