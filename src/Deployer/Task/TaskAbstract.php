@@ -55,8 +55,8 @@ abstract class TaskAbstract
             self::$pathAppDir = self::$pathReleaseDir;
 
             // use custom app dir if set
-            if (!empty( self::getAppDir())) {
-                self::$pathAppDir = '/' .  self::getAppDir();
+            if (!empty(self::getAppDir())) {
+                self::$pathAppDir .= '/' . self::getAppDir();
             }
         }
 
