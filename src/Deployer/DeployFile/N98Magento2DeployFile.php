@@ -16,28 +16,28 @@ class N98Magento2DeployFile extends Magento2DeployFile
     {
         parent::configuration();
 
-        $mageDir = 'src/';
+        $appDir = 'src/';
 
-        \Deployer\set('app_dir', $mageDir);
+        \Deployer\set('app_dir', $appDir);
 
         $sharedFiles = [
-            "{$mageDir}app/etc/env.php",
+            "{$appDir}app/etc/env.php",
         ];
         \Deployer\set('shared_files', $sharedFiles);
 
         $sharedDirs = [
-            "{$mageDir}pub/media",
-            "{$mageDir}var/log",
-            "{$mageDir}var/session",
-            "{$mageDir}var/composer_home",
-            "{$mageDir}var/n98_integration",
+            "{$appDir}pub/media",
+            "{$appDir}var/log",
+            "{$appDir}var/session",
+            "{$appDir}var/composer_home",
+            "{$appDir}var/n98_integration",
         ];
         \Deployer\set('shared_dirs', $sharedDirs);
 
         $writeDirs = [
-            "{$mageDir}var",
-            "{$mageDir}pub/static'",
-            "{$mageDir}pub/media'",
+            "{$appDir}var",
+            "{$appDir}pub/static'",
+            "{$appDir}pub/media'",
         ];
         \Deployer\set('writable_dirs', $writeDirs);
 
