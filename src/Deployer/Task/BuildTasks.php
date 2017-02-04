@@ -19,6 +19,8 @@ class BuildTasks extends TaskAbstract
     const TASK_FIX_FILE_OWNERSHIP = 'build:fix_file_ownership';
     const TASK_LINK_ENV_CONFIG = 'build:link_env_config';
 
+    const PATH_APP_ETC_ENV_PHP = 'app/etc/env.php';
+
     public static function register()
     {
         Deployer::task(
@@ -56,7 +58,7 @@ class BuildTasks extends TaskAbstract
         /** @var array $dirs */
         $dirs = \Deployer\get('shared_dirs');
 
-        $sharedDir = self::$sharedDir;
+        $sharedDir = self::getPathSharedDir();
         foreach ($dirs as $dir) {
             $cmd = "mkdir -p $sharedDir/$dir";
             \Deployer\run($cmd);
@@ -70,10 +72,11 @@ class BuildTasks extends TaskAbstract
     {
         $webserverUser = \Deployer\get('webserver-user');
         $webserverGroup = \Deployer\get('webserver-group');
-        $srcDir = self::$srcDir;
-        $sharedDir = self::$sharedDir;
+        $srcDir = self::getPathAppDir();
+        $sharedDir = self::getPathSharedDir();
 
         // Change File ownership to pub/static, it has to be writable even in production mode as there is test
+        // @todo make this configurable
         \Deployer\run("sudo chown -RH $webserverUser:$webserverGroup $srcDir/pub/static");
         \Deployer\run("sudo chmod -R g+w $srcDir/pub/static");
 
@@ -94,8 +97,8 @@ class BuildTasks extends TaskAbstract
      */
     public static function linkEnvConfig()
     {
-        $file = 'src/app/etc/env.php';
-        $sharedPath = self::$sharedDir;
+        $file = self::getPathEtcEnvPhp();
+        $sharedPath = self::getPathSharedDir();
 
         \Deployer\run("{{bin/symlink}} $sharedPath/$file {{release_path}}/$file");
     }
@@ -107,10 +110,24 @@ class BuildTasks extends TaskAbstract
      */
     protected static function uploadAndExtract($tarFile)
     {
-        $releasePath = self::$releaseDir;
+        $releasePath = self::getPathReleaseDir();
         \Deployer\upload("shop/$tarFile", "$releasePath/$tarFile");
         \Deployer\run("cd $releasePath; tar xfz $releasePath/$tarFile");
         \Deployer\run("rm $releasePath/$tarFile");
+    }
+
+    /**
+     * @return string
+     */
+    protected static function getPathEtcEnvPhp()
+    {
+        $file = self::PATH_APP_ETC_ENV_PHP;
+        $appDir = self::getAppDir();
+        if ($appDir) {
+            $file = "$appDir/$file";
+        }
+
+        return $file;
     }
 
 }

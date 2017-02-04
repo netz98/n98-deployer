@@ -66,7 +66,8 @@ class DeployTasks extends TaskAbstract
         }
 
         // Symlink to stable release.
-        \Deployer\run("cd {{deploy_path}} && {{bin/symlink}} $releaseDir current");
+        \Deployer\cd('{{deploy_path}}');
+        \Deployer\run("{{bin/symlink}} $releaseDir current");
 
         // Remove erronous release
         $hasReleaseDir = \Deployer\run("if [ -d {{deploy_path}}/release ]; then echo 'true'; fi")->toBool();

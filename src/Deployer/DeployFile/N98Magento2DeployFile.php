@@ -18,6 +18,8 @@ class N98Magento2DeployFile extends Magento2DeployFile
 
         $mageDir = 'src/';
 
+        \Deployer\set('app_dir', $mageDir);
+
         $sharedFiles = [
             "{$mageDir}app/etc/env.php",
         ];

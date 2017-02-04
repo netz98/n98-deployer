@@ -82,10 +82,10 @@ class MagentoTasks extends TaskAbstract
      */
     public static function toggleMaintenenceMode($enabled)
     {
-        $srcDir = self::$srcDir;
         $maintenance = $enabled === true ? 'maintenance:enable' : 'maintenance:disable';
 
-        \Deployer\run("cd $srcDir; php bin/magento $maintenance");
+        \Deployer\cd(self::getPathAppDir());
+        \Deployer\run("php bin/magento $maintenance");
     }
 
     /**
@@ -93,9 +93,10 @@ class MagentoTasks extends TaskAbstract
      */
     public static function allowSymlinks()
     {
-        $srcDir = self::$srcDir;
         $binMagerun = self::getBinMagerun2();
-        \Deployer\run("cd $srcDir; $binMagerun dev:symlinks  --global --on");
+
+        \Deployer\cd(self::getPathAppDir());
+        \Deployer\run("$binMagerun dev:symlinks  --global --on");
     }
 
     /**
@@ -103,8 +104,8 @@ class MagentoTasks extends TaskAbstract
      */
     public static function runSetupUpgrade()
     {
-        $srcDir = self::$srcDir;
-        \Deployer\run("cd $srcDir; php bin/magento setup:upgrade --keep-generated");
+        \Deployer\cd(self::getPathAppDir());
+        \Deployer\run("php bin/magento setup:upgrade --keep-generated");
     }
 
     /**
@@ -112,9 +113,10 @@ class MagentoTasks extends TaskAbstract
      */
     public static function runSetupDowngrade()
     {
-        $srcDir = self::$srcDir;
         $binMagerun = self::getBinMagerun2();
-        \Deployer\run("cd $srcDir; $binMagerun sys:setup:downgrade-versions");
+
+        \Deployer\cd(self::getPathAppDir());
+        \Deployer\run("$binMagerun sys:setup:downgrade-versions");
     }
 
     /**
@@ -127,8 +129,8 @@ class MagentoTasks extends TaskAbstract
             $env =  \Deployer\input()->getArgument('stage');
         }
 
-        $srcDir = self::$srcDir;
-        \Deployer\run("cd $srcDir; php bin/magento config:data:import ../config/store $env");
+        \Deployer\cd(self::getPathAppDir());
+        \Deployer\run("php bin/magento config:data:import ../config/store $env");
     }
 
     /**
@@ -136,8 +138,8 @@ class MagentoTasks extends TaskAbstract
      */
     public static function importCmsData()
     {
-        $srcDir = self::$srcDir;
-        \Deployer\run("cd $srcDir; php bin/magento cms:import");
+        \Deployer\cd(self::getPathAppDir());
+        \Deployer\run("php bin/magento cms:import");
     }
 
     /**
@@ -147,10 +149,10 @@ class MagentoTasks extends TaskAbstract
      */
     public static function activateMagentoCache($enabled)
     {
-        $srcDir = self::$srcDir;
         $cache = $enabled === true ? 'cache:enable' : 'cache:disable';
 
-        \Deployer\run("cd $srcDir; php bin/magento $cache");
+        \Deployer\cd(self::getPathAppDir());
+        \Deployer\run("php bin/magento $cache");
     }
 
     /**
@@ -158,8 +160,8 @@ class MagentoTasks extends TaskAbstract
      */
     public static function flushMagentoCache()
     {
-        $srcDir = self::$srcDir;
-        \Deployer\run("cd $srcDir; php bin/magento cache:flush");
+        \Deployer\cd(self::getPathAppDir());
+        \Deployer\run("php bin/magento cache:flush");
     }
 
     /**
