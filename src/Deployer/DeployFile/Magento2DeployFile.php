@@ -22,7 +22,7 @@ class Magento2DeployFile
     public static function configuration()
     {
         $sharedFiles = [
-            'src/app/etc/env.php',
+            'app/etc/env.php',
         ];
         \Deployer\set('shared_files', $sharedFiles);
 
@@ -40,6 +40,33 @@ class Magento2DeployFile
             "pub/media'",
         ];
         \Deployer\set('writable_dirs', $writeDirs);
+
+        $chownDirs = [
+            // Change File ownership to pub/static, it has to be writable even in production mode as there is a test
+            'release_pub_static' => [
+                'dir' => "{{release_path_app}}/pub/static",
+                'mode' => 'g+w',
+                'owner' => "{{webserver-user}}:{{webserver-group}}",
+            ],
+            // Change file ownership and acl in var dir (not all dirs under var are linked)
+            'release_var' => [
+                'dir' => "{{release_path_app}}/var",
+                'mode' => '775',
+                'owner' => "{{webserver-user}}:{{webserver-group}}",
+            ],
+            // Change file ownership and acl in shared directly (in case chmod has no -H option)
+            'shared_var' => [
+                'dir' => "{{shared_path_app}}/var",
+                'mode' => '775',
+                'owner' => "{{webserver-user}}:{{webserver-group}}",
+            ],
+            'shared_pub_media' => [
+                'dir' => "{{shared_path_app}}/pub/media",
+                'mode' => '775',
+                'owner' => "{{webserver-user}}:{{webserver-group}}",
+            ],
+        ];
+        \Deployer\set('change_owner_mode_dirs', $chownDirs);
 
         $artifacts = [
             'shop.tar.gz',
