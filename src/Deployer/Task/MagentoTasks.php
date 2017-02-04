@@ -84,7 +84,7 @@ class MagentoTasks extends TaskAbstract
     {
         $maintenance = $enabled === true ? 'maintenance:enable' : 'maintenance:disable';
 
-        \Deployer\cd(self::getPathAppDir());
+        \Deployer\cd('{{release_path_app}}');
         \Deployer\run("php bin/magento $maintenance");
     }
 
@@ -95,7 +95,7 @@ class MagentoTasks extends TaskAbstract
     {
         $binMagerun = self::getBinMagerun2();
 
-        \Deployer\cd(self::getPathAppDir());
+        \Deployer\cd('{{release_path_app}}');
         \Deployer\run("$binMagerun dev:symlinks  --global --on");
     }
 
@@ -104,7 +104,7 @@ class MagentoTasks extends TaskAbstract
      */
     public static function runSetupUpgrade()
     {
-        \Deployer\cd(self::getPathAppDir());
+        \Deployer\cd('{{release_path_app}}');
         \Deployer\run("php bin/magento setup:upgrade --keep-generated");
     }
 
@@ -115,7 +115,7 @@ class MagentoTasks extends TaskAbstract
     {
         $binMagerun = self::getBinMagerun2();
 
-        \Deployer\cd(self::getPathAppDir());
+        \Deployer\cd('{{release_path_app}}');
         \Deployer\run("$binMagerun sys:setup:downgrade-versions");
     }
 
@@ -129,7 +129,7 @@ class MagentoTasks extends TaskAbstract
             $env =  \Deployer\input()->getArgument('stage');
         }
 
-        \Deployer\cd(self::getPathAppDir());
+        \Deployer\cd('{{release_path_app}}');
         \Deployer\run("php bin/magento config:data:import ../config/store $env");
     }
 
@@ -138,7 +138,7 @@ class MagentoTasks extends TaskAbstract
      */
     public static function importCmsData()
     {
-        \Deployer\cd(self::getPathAppDir());
+        \Deployer\cd('{{release_path_app}}');
         \Deployer\run("php bin/magento cms:import");
     }
 
@@ -151,7 +151,7 @@ class MagentoTasks extends TaskAbstract
     {
         $cache = $enabled === true ? 'cache:enable' : 'cache:disable';
 
-        \Deployer\cd(self::getPathAppDir());
+        \Deployer\cd('{{release_path_app}}');
         \Deployer\run("php bin/magento $cache");
     }
 
@@ -160,7 +160,7 @@ class MagentoTasks extends TaskAbstract
      */
     public static function flushMagentoCache()
     {
-        \Deployer\cd(self::getPathAppDir());
+        \Deployer\cd('{{release_path_app}}');
         \Deployer\run("php bin/magento cache:flush");
     }
 
