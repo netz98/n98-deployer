@@ -5,7 +5,7 @@
  * @see LICENSE
  */
 
-namespace N98\Deployer\DeployFile;
+namespace N98\Deployer\Recipe;
 
 use N98\Deployer\Config\ReleaseConfig;
 use N98\Deployer\Task\BuildTasks;
@@ -17,7 +17,7 @@ use N98\Deployer\Task\SystemTasks;
 /**
  * Magento2DeployFile
  */
-class Magento2DeployFile
+class Magento2Recipe
 {
     public static function configuration()
     {

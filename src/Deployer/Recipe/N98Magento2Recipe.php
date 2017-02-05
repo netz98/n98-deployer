@@ -5,12 +5,12 @@
  * @see LICENSE
  */
 
-namespace N98\Deployer\DeployFile;
+namespace N98\Deployer\Recipe;
 
 /**
  * N98Magento2DeployFile
  */
-class N98Magento2DeployFile extends Magento2DeployFile
+class N98Magento2Recipe extends Magento2Recipe
 {
     public static function configuration()
     {
