@@ -44,8 +44,8 @@ class N98Magento2DeployFile extends Magento2DeployFile
         \Deployer\set('ssh_type', 'native');
 
         \Deployer\set('bin/n98_magerun2', 'n98-magerun2');
-        \Deployer\set('webserver-user', 'www-data');
-        \Deployer\set('webserver-group', 'www-data');
+        \Deployer\set('webserver_user', 'www-data');
+        \Deployer\set('webserver_group', 'www-data');
 
         \Deployer\set('phpfpm_service', 'php7.0-fpm');
         \Deployer\set('nginx_service', 'nginx');

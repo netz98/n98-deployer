@@ -67,7 +67,7 @@ class BuildTasks extends TaskAbstract
     }
 
     /**
-     * Fix File Ownership and access rights for both deploy user and webserver-user
+     * Fix File Ownership and access rights for both deploy user and webserver_user
      */
     public static function changeOwnerAndMode()
     {

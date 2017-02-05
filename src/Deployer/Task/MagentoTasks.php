@@ -124,7 +124,7 @@ class MagentoTasks extends TaskAbstract
      */
     public static function updateMagentoConfig()
     {
-        $env = \Deployer\get('config-store-env');
+        $env = \Deployer\get('config_store_env');
         if (empty($env)) {
             $env =  \Deployer\input()->getArgument('stage');
         }

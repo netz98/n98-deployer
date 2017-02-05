@@ -46,24 +46,24 @@ class Magento2DeployFile
             'release_pub_static' => [
                 'dir' => "{{release_path_app}}/pub/static",
                 'mode' => 'g+w',
-                'owner' => "{{webserver-user}}:{{webserver-group}}",
+                'owner' => "{{webserver_user}}:{{webserver_group}}",
             ],
             // Change file ownership and acl in var dir (not all dirs under var are linked)
             'release_var' => [
                 'dir' => "{{release_path_app}}/var",
                 'mode' => '775',
-                'owner' => "{{webserver-user}}:{{webserver-group}}",
+                'owner' => "{{webserver_user}}:{{webserver_group}}",
             ],
             // Change file ownership and acl in shared directly (in case chmod has no -H option)
             'shared_var' => [
                 'dir' => "{{shared_path_app}}/var",
                 'mode' => '775',
-                'owner' => "{{webserver-user}}:{{webserver-group}}",
+                'owner' => "{{webserver_user}}:{{webserver_group}}",
             ],
             'shared_pub_media' => [
                 'dir' => "{{shared_path_app}}/pub/media",
                 'mode' => '775',
-                'owner' => "{{webserver-user}}:{{webserver-group}}",
+                'owner' => "{{webserver_user}}:{{webserver_group}}",
             ],
         ];
         \Deployer\set('change_owner_mode_dirs', $chownDirs);
