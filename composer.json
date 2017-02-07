@@ -1,0 +1,18 @@
+{
+    "name": "n98/n98-deployer",
+    "description": "netz98 deployer tasks, recipes, configuration",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthias Walter",
+            "email": "m.walter@netz98.de"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "N98\\Deployer\\": "src/Deployer/"
+        }
+    }
+}
