@@ -121,6 +121,14 @@ class MagentoTasks extends TaskAbstract
 
     /**
      * Import the Magento Config using the config data files
+     *
+     * config:
+     *  - config_store_env
+     *
+     * requirements:
+     *  - config:data:import command through semaio/Magento2-ConfigImportExport
+     *  - <git-repo>/config/store/<config_store_env> directory tree
+     *
      */
     public static function updateMagentoConfig()
     {
