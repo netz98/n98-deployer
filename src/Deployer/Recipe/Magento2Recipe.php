@@ -21,6 +21,10 @@ class Magento2Recipe
 {
     public static function configuration()
     {
+        $appDir = '';
+
+        \Deployer\set('app_dir', $appDir);
+
         $sharedFiles = [
             'app/etc/env.php',
         ];
