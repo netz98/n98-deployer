@@ -42,6 +42,7 @@ class N98Magento2Recipe extends Magento2Recipe
         \Deployer\set('writable_dirs', $writeDirs);
 
         \Deployer\set('ssh_type', 'native');
+        \Deployer\set('ssh_multiplexing', true);
 
         \Deployer\set('bin/n98_magerun2', 'n98-magerun2');
         \Deployer\set('webserver_user', 'www-data');
