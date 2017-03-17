@@ -70,6 +70,8 @@ class Magento2Recipe
         ];
         \Deployer\set('change_owner_mode_dirs', $chownDirs);
 
+        \Deployer\set('artifacts_dir', 'artifacts');
+
         $artifacts = [
             'shop.tar.gz',
             'pub_static.tar.gz',

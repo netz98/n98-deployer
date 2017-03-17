@@ -106,7 +106,7 @@ class BuildTasks extends TaskAbstract
     {
         $releasePath = '{{release_path}}';
 
-        \Deployer\upload("shop/$tarFile", "$releasePath/$tarFile");
+        \Deployer\upload("{{artifacts_dir}}/$tarFile", "$releasePath/$tarFile");
         \Deployer\run("cd $releasePath; tar xfz $releasePath/$tarFile");
         \Deployer\run("rm $releasePath/$tarFile");
     }
