@@ -74,9 +74,6 @@ class Magento2Recipe
 
         $artifacts = [
             'shop.tar.gz',
-            'pub_static.tar.gz',
-            'var_generation.tar.gz',
-            'var_di.tar.gz',
         ];
         \Deployer\set('magento_build_artifacts', $artifacts);
     }
