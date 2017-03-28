@@ -138,7 +138,7 @@ class MagentoTasks extends TaskAbstract
         }
 
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run("php bin/magento config:data:import ../config/store $env");
+        \Deployer\run("php bin/magento config:data:import config/store $env");
     }
 
     /**
