@@ -129,16 +129,22 @@ class MagentoTasks extends TaskAbstract
      *  - config:data:import command through semaio/Magento2-ConfigImportExport
      *  - <git-repo>/config/store/<config_store_env> directory tree
      *
+     * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
      */
     public static function updateMagentoConfig()
     {
         $env = \Deployer\get('config_store_env');
         if (empty($env)) {
-            $env =  \Deployer\input()->getArgument('stage');
+            $env = \Deployer\input()->getArgument('stage');
+        }
+
+        $dir = \Deployer\get('config_store_dir');
+        if (empty($dir)) {
+            $dir = '{{release_path}}/config/store';
         }
 
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run("php bin/magento config:data:import ../config/store $env");
+        \Deployer\run("php bin/magento config:data:import $dir $env");
     }
 
     /**
