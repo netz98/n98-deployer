@@ -9,7 +9,9 @@
             "email": "m.walter@netz98.de"
         }
     ],
-    "require": {},
+    "require": {
+        "deployer/deployer": "^4.1"
+    },
     "autoload": {
         "psr-4": {
             "N98\\Deployer\\": "src/Deployer/"
