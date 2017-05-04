@@ -50,11 +50,5 @@ class N98Magento2Recipe extends Magento2Recipe
 
         \Deployer\set('phpfpm_service', 'php7.0-fpm');
         \Deployer\set('nginx_service', 'nginx');
-
-        $artifacts = [
-            'config.tar.gz',
-        ];
-        \Deployer\add('magento_build_artifacts', $artifacts);
-
     }
 }
