@@ -76,6 +76,8 @@ class Magento2Recipe
             'shop.tar.gz',
         ];
         \Deployer\set('magento_build_artifacts', $artifacts);
+
+        \Deployer\set('config_store_dir', '{{release_path}}/config/store');
     }
 
     public static function tasks()
