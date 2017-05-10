@@ -4,6 +4,10 @@
 
 - TBD
 
+## 1.3.3
+
+- allow dots in release-names of branches
+
 ## 1.3.2
 
 - Clean branch names for release directory: remove special-chars [bd9e563]

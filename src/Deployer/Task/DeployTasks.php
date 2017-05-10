@@ -171,7 +171,7 @@ class DeployTasks extends TaskAbstract
         $result = str_replace(' ', '_', $string);
 
         // Remove special chars.
-        $result = preg_replace('/[^A-Za-z0-9\-]/', '-', $result);
+        $result = preg_replace('/[^A-Za-z0-9\.\-]/', '-', $result);
 
         return $result;
     }
