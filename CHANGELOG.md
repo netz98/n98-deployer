@@ -4,6 +4,10 @@
 
 - TBD
 
+## 1.3.2
+
+- Clean branch names for release directory: remove special-chars [bd9e563]
+
 ## 1.3.1
 
 - N98Magento2Recipe: remove seperate config artifact
