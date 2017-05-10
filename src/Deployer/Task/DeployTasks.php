@@ -131,7 +131,8 @@ class DeployTasks extends TaskAbstract
         if ($isVersion === true) {
             $releaseName = self::getUniqueReleaseName($release);
         } else {
-            $releaseName = $release . '-' . date('YmdHis');
+            $releaseClean = self::cleanString($release);
+            $releaseName = $releaseClean . '-' . date('YmdHis');
         }
 
         \Deployer\set('release_name', $releaseName);
@@ -157,4 +158,21 @@ class DeployTasks extends TaskAbstract
         return $releaseName;
     }
 
+    /**
+     * Clean a string from special characters and only leave letters, digits, _ and -
+     *
+     * @param $string
+     *
+     * @return string
+     */
+    protected static function cleanString($string)
+    {
+        // Replace all spaces with hyphens.
+        $result = str_replace(' ', '_', $string);
+
+        // Remove special chars.
+        $result = preg_replace('/[^A-Za-z0-9\-]/', '-', $result);
+
+        return $result;
+    }
 }
