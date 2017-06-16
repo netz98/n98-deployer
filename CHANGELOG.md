@@ -1,11 +1,15 @@
 # CHANGELOG
 
-## next (2.0.0)
+## next
+
+-
+
+## 2.0.0
 
 - add compatibility with deployer 5.0.x
-    - CleanupTask no longer needs to be overwritten, use cleanup_use_sudo if neded
-    - use onHosts to registerTask for a specific role
-    - this version is no longer compatible with deployer 4.x
+- CleanupTask no longer needs to be overwritten, use cleanup_use_sudo if neded
+- use onHosts to registerTask for a specific role
+- this version is no longer compatible with deployer 4.x
 
 ## 1.3.3
 
