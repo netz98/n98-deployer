@@ -4,6 +4,10 @@
 
 -
 
+## 2.0.1
+
+- use deployer Task onRoles
+
 ## 2.0.0
 
 - add compatibility with deployer 5.0.x

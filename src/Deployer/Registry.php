@@ -45,9 +45,7 @@ class Registry
         $task = \Deployer\task($code, $body);
 
         if (is_array($roles)) {
-            $servers = RoleManager::getServerListByRoles($roles);
-
-            $task->onHosts($servers);
+            $task->onRoles(...$roles);
         }
 
         return $task;
