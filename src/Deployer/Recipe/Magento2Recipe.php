@@ -87,6 +87,5 @@ class Magento2Recipe
         BuildTasks::register();
         MagentoTasks::register();
         SystemTasks::register();
-        CleanupTasks::register();
     }
 }
