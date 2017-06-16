@@ -47,7 +47,7 @@ class Registry
         if (is_array($roles)) {
             $servers = RoleManager::getServerListByRoles($roles);
 
-            $task->onlyOn($servers);
+            $task->onHosts($servers);
         }
 
         return $task;
