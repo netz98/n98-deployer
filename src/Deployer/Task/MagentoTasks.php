@@ -19,6 +19,7 @@ class MagentoTasks extends TaskAbstract
     const TASK_SYMLINKS_ENABLE = 'magento:symlinks_enable';
     const TASK_SETUP_UPGRADE = 'magento:setup_upgrade';
     const TASK_SETUP_DOWNGRADE = 'magento:setup_downgrade';
+    const TASK_CONFIG_DATA_EXPORT = 'magento:config_data_export';
     const TASK_CONFIG_DATA_IMPORT = 'magento:config_data_import';
     const TASK_CMS_DATA_IMPORT = 'magento:cms_data_import';
     const TASK_CACHE_ENABLE = 'magento:cache_enable';
@@ -46,6 +47,11 @@ class MagentoTasks extends TaskAbstract
         Deployer::task(
             MagentoTasks::TASK_SETUP_DOWNGRADE, 'run Magento Downgrade',
             function () { MagentoTasks::runSetupDowngrade(); },
+            ['db']
+        );
+        Deployer::task(
+            MagentoTasks::TASK_CONFIG_DATA_EXPORT, 'Magento config backup',
+            function () { MagentoTasks::backupMagentoConfig(); },
             ['db']
         );
         Deployer::task(
@@ -145,6 +151,24 @@ class MagentoTasks extends TaskAbstract
 
         \Deployer\cd('{{release_path_app}}');
         \Deployer\run("php bin/magento config:data:import $dir $env");
+    }
+
+    /**
+     * Export the Magento Config using the config data files
+     * Uses var directory and a date/time prefixed subdirectory.
+     * e.g. {{release_path_app/var/20170908_111421_config_backup/}}
+     *
+     * Shoud be ran BEFORE config import, to have a backup of Magento config.
+     *
+     * requirements:
+     *  - config:data:export command through semaio/Magento2-ConfigImportExport
+     *
+     * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
+     */
+    public static function backupMagentoConfig()
+    {
+        \Deployer\cd('{{release_path_app}}');
+        \Deployer\run("php bin/magento config:data:export --filePerNameSpace=y --format=yaml --filename=config_backup/");
     }
 
     /**
