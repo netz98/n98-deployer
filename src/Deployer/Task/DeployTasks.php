@@ -108,7 +108,7 @@ class DeployTasks extends TaskAbstract
         $path = \Deployer\get('deploy_path');
         $hasReleasePathStable = \Deployer\run("if [ -d $path/current/ ]; then echo 'true'; fi")->toBool();
         if ($hasReleasePathStable) {
-            $releasePathStable = (string)\Deployer\run("realpath $path/current/");
+            $releasePathStable = (string)\Deployer\run("readlink -f $path/current/");
             \Deployer\set('release_path_stable', $releasePathStable);
         }
         if (\Deployer\isVerbose()) {
