@@ -2,6 +2,11 @@
 
 ## next
 
+- 
+
+## 2.0.2
+
+- Use readlink in favour of realpath #3
 - Add ability to dump/backup Magento core_config_data #5
 
 ## 2.0.1
