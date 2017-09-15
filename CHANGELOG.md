@@ -1,8 +1,9 @@
 # CHANGELOG
 
-## next
+## 3.0
 
-- 
+- upgrade to deployer 6.0.x:
+    - changing behaviour of \Deployer\run which returns string
 
 ## 2.0.2
 
