@@ -111,7 +111,7 @@ class MagentoTasks extends TaskAbstract
     public static function runSetupUpgrade()
     {
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run("php bin/magento setup:upgrade --keep-generated");
+        \Deployer\run('php bin/magento setup:upgrade --keep-generated');
     }
 
     /**
@@ -168,7 +168,7 @@ class MagentoTasks extends TaskAbstract
     public static function backupMagentoConfig()
     {
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run("php bin/magento config:data:export --filePerNameSpace=y --format=yaml --filename=config_backup/");
+        \Deployer\run('php bin/magento config:data:export --filePerNameSpace=y --format=yaml --filename=config_backup/');
     }
 
     /**
@@ -177,7 +177,7 @@ class MagentoTasks extends TaskAbstract
     public static function importCmsData()
     {
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run("php bin/magento cms:import");
+        \Deployer\run('php bin/magento cms:import');
     }
 
     /**
@@ -199,7 +199,7 @@ class MagentoTasks extends TaskAbstract
     public static function flushMagentoCache()
     {
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run("php bin/magento cache:flush");
+        \Deployer\run('php bin/magento cache:flush');
     }
 
     /**
