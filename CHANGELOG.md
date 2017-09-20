@@ -4,6 +4,7 @@
 
 - upgrade to deployer 6.0.x:
     - changing behaviour of \Deployer\run which returns string
+    - read the deployer CHANGELOG https://github.com/deployphp/deployer/blob/master/UPGRADE.md
 
 ## 2.0.2
 
