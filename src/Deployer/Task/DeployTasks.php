@@ -70,9 +70,9 @@ class DeployTasks extends TaskAbstract
         \Deployer\run("{{bin/symlink}} $releaseDir current");
 
         // Remove erronous release
-        $hasReleaseDir = \Deployer\run("if [ -d {{deploy_path}}/release ]; then echo 'true'; fi");
+        $hasReleaseDir = \Deployer\test('[ -d {{deploy_path}}/release ]');
         if ($hasReleaseDir) {
-            $releaseDirToDelete = (string) \Deployer\run('readlink {{deploy_path}}/release');
+            $releaseDirToDelete = \Deployer\run('readlink {{deploy_path}}/release');
             if ($releaseDirToDelete) {
                 \Deployer\run("rm -rf {$releaseDirToDelete}"); // Delete release.
                 \Deployer\run('rm {{deploy_path}}/release'); // Delete symlink.
@@ -106,7 +106,7 @@ class DeployTasks extends TaskAbstract
     {
         $releasePathStable = '';
         $path = \Deployer\get('deploy_path');
-        $hasStableRelease = \Deployer\run("if [ -d $path/current/ ]; then echo 'true'; fi") == 'true';
+        $hasStableRelease = \Deployer\test("[ -d $path/current/ ]");
         if ($hasStableRelease) {
             $releasePathStable = (string)\Deployer\run("readlink -f $path/current/");
             \Deployer\set('release_path_stable', $releasePathStable);
@@ -151,10 +151,11 @@ class DeployTasks extends TaskAbstract
         // Prevent duplicate release names
         $i = 0;
         $releaseName = $release;
-        $cmd = "if [ -d {{deploy_path}}/releases/$releaseName ]; then echo 'true'; fi";
-        while (\Deployer\run($cmd) == 'true') {
+        $cmdTemplate = '[ -d {{deploy_path}}/releases/%s ]';
+        $cmd = sprintf($cmdTemplate, $releaseName);
+        while (\Deployer\test($cmd)) {
             $releaseName = $release . '-' . ++$i;
-            $cmd = "if [ -d {{deploy_path}}/releases/$releaseName ]; then echo 'true'; fi";
+            $cmd = sprintf($cmdTemplate, $releaseName);
         }
 
         return $releaseName;

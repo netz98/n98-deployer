@@ -24,8 +24,8 @@ class GetReleasesListService
         \Deployer\cd('{{deploy_path}}');
 
         // If there is no releases return empty list.
-        $cmdReleaseDirs = '[ -d releases ] && [ "$(ls -A releases)" ] && echo "true" || echo "false"';
-        $hasReleaseDirs = \Deployer\run($cmdReleaseDirs) == 'true';
+        $cmdReleaseDirs = '[ -d releases ] && [ "$(ls -A releases)" ]';
+        $hasReleaseDirs = \Deployer\test($cmdReleaseDirs);
         if (!$hasReleaseDirs) {
             return [];
         }
@@ -43,7 +43,7 @@ class GetReleasesListService
         // Collect releases based on .dep/releases info.
         // Other will be ignored.
 
-        $hasReleasesList = \Deployer\run('if [ -f .dep/releases ]; then echo "true"; fi') == 'true';
+        $hasReleasesList = \Deployer\test('[ -f .dep/releases ]');
         if (!$hasReleasesList) {
             return $releases;
         }
