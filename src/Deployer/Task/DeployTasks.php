@@ -108,7 +108,12 @@ class DeployTasks extends TaskAbstract
         $path = \Deployer\get('deploy_path');
         $hasStableRelease = \Deployer\test("[ -d $path/current/ ]");
         if ($hasStableRelease) {
-            $releasePathStable = (string)\Deployer\run("readlink -f $path/current/");
+            if (PHP_OS === 'Darwin') {
+                $releasePathStable = (string)\Deployer\run("readlink -n $path/current");
+            }
+            else {
+                $releasePathStable = (string)\Deployer\run("readlink -f $path/current/");
+            }
             \Deployer\set('release_path_stable', $releasePathStable);
         }
         if (\Deployer\isVerbose()) {
