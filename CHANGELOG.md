@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## next
+
+- GNU readlink is required
+- add readlink_bin config to make custom readlink-bin injectable 
+    MacOS has a different readlink and you might have installed gnu-readlink to a different path
+
 ## 3.0
 
 - upgrade to deployer 6.0.x:
