@@ -5,6 +5,7 @@
 - GNU readlink is required
 - add readlink_bin config to make custom readlink-bin injectable 
     MacOS has a different readlink and you might have installed gnu-readlink to a different path
+- add task to disable magento fpc
 
 ## 3.0
 
