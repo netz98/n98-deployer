@@ -34,6 +34,8 @@ class DeployTasks extends TaskAbstract
      */
     public static function initialize()
     {
+        \Deployer\Deployer::addDefault('readlink_bin', 'readlink');
+
         self::initStableRelease();
         self::initReleaseName();
     }
@@ -108,7 +110,7 @@ class DeployTasks extends TaskAbstract
         $path = \Deployer\get('deploy_path');
         $hasStableRelease = \Deployer\test("[ -d $path/current/ ]");
         if ($hasStableRelease) {
-            $releasePathStable = (string)\Deployer\run("readlink -f $path/current/");
+            $releasePathStable = (string)\Deployer\run("{{readlink_bin}} -f $path/current/");
             \Deployer\set('release_path_stable', $releasePathStable);
         }
         if (\Deployer\isVerbose()) {
