@@ -34,6 +34,8 @@ class DeployTasks extends TaskAbstract
      */
     public static function initialize()
     {
+        \Deployer\Deployer::addDefault('readlink_bin', 'readlink');
+
         self::initStableRelease();
         self::initReleaseName();
     }
@@ -109,10 +111,10 @@ class DeployTasks extends TaskAbstract
         $hasStableRelease = \Deployer\test("[ -d $path/current/ ]");
         if ($hasStableRelease) {
             if (PHP_OS === 'Darwin') {
-                $releasePathStable = (string)\Deployer\run("readlink -n $path/current");
+                $releasePathStable = (string)\Deployer\run("{{readlink_bin}} -n $path/current");
             }
             else {
-                $releasePathStable = (string)\Deployer\run("readlink -f $path/current/");
+                $releasePathStable = (string)\Deployer\run("{{readlink_bin}} -f $path/current/");
             }
             \Deployer\set('release_path_stable', $releasePathStable);
         }
