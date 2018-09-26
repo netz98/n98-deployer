@@ -2,6 +2,12 @@
 
 ## next
 
+## 4.0.0
+
+- macOS switch added for proper `readlink` options handling
+- fix wrong `readlink_bin` default setting datatype
+- make the `app_dir` overwriteable in case you use the `N98Magento2Recipe` instead of the default `Magento2Recipe`
+
 ## 3.0.1
 
 - GNU readlink is required
