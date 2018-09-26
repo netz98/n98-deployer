@@ -16,28 +16,26 @@ class N98Magento2Recipe extends Magento2Recipe
     {
         parent::configuration();
 
-        $appDir = 'src/';
-
-        \Deployer\set('app_dir', $appDir);
+        \Deployer\set('app_dir', 'src/');
 
         $sharedFiles = [
-            "{$appDir}app/etc/env.php",
+            "{{app_dir}}app/etc/env.php",
         ];
         \Deployer\set('shared_files', $sharedFiles);
 
         $sharedDirs = [
-            "{$appDir}pub/media",
-            "{$appDir}var/log",
-            "{$appDir}var/session",
-            "{$appDir}var/composer_home",
-            "{$appDir}var/n98_integration",
+            "{{app_dir}}pub/media",
+            "{{app_dir}}var/log",
+            "{{app_dir}}var/session",
+            "{{app_dir}}var/composer_home",
+            "{{app_dir}}var/n98_integration",
         ];
         \Deployer\set('shared_dirs', $sharedDirs);
 
         $writeDirs = [
-            "{$appDir}var",
-            "{$appDir}pub/static'",
-            "{$appDir}pub/media'",
+            "{{app_dir}}var",
+            "{{app_dir}}pub/static'",
+            "{{app_dir}}pub/media'",
         ];
         \Deployer\set('writable_dirs', $writeDirs);
 

@@ -20,12 +20,18 @@ class DeployTasks extends TaskAbstract
     public static function register()
     {
         Deployer::task(
-            DeployTasks::TASK_INITIALIZE, 'initialize',
-            function () { DeployTasks::initialize(); }
+            DeployTasks::TASK_INITIALIZE,
+            'initialize',
+            function () {
+                DeployTasks::initialize();
+            }
         );
         Deployer::task(
-            DeployTasks::TASK_ROLLBACK, 'rollback to stable release previous to deploy',
-            function () { DeployTasks::rollback(); }
+            DeployTasks::TASK_ROLLBACK,
+            'rollback to stable release previous to deploy',
+            function () {
+                DeployTasks::rollback();
+            }
         );
     }
 
@@ -34,7 +40,7 @@ class DeployTasks extends TaskAbstract
      */
     public static function initialize()
     {
-        \Deployer\Deployer::addDefault('readlink_bin', 'readlink');
+        \Deployer\Deployer::addDefault('readlink_bin', ['readlink']);
 
         self::initStableRelease();
         self::initReleaseName();
@@ -110,7 +116,18 @@ class DeployTasks extends TaskAbstract
         $path = \Deployer\get('deploy_path');
         $hasStableRelease = \Deployer\test("[ -d $path/current/ ]");
         if ($hasStableRelease) {
-            $releasePathStable = (string)\Deployer\run("{{readlink_bin}} -f $path/current/");
+
+            // make shure we do not have an array at this point TODO: Check why this workaround is necessary
+            $readlinkBin = \Deployer\get('readlink_bin');
+            if (is_array($readlinkBin)) {
+                $readlinkBin = current($readlinkBin);
+            }
+
+            if (PHP_OS === 'Darwin') {
+                $releasePathStable = (string)\Deployer\run("$readlinkBin -n $path/current");
+            } else {
+                $releasePathStable = (string)\Deployer\run("$readlinkBin -f $path/current/");
+            }
             \Deployer\set('release_path_stable', $releasePathStable);
         }
         if (\Deployer\isVerbose()) {
