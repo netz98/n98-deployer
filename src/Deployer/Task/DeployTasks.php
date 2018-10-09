@@ -33,6 +33,13 @@ class DeployTasks extends TaskAbstract
                 DeployTasks::rollback();
             }
         );
+        Deployer::task(
+            DeployTasks::TASK_LINKCACHETOOL, 
+            'Links cachetool to release, to re-use deployer cachetool recipe. Set {{cachetool_bin}} in your deploy.php to make it work',
+            function () {
+                DeployTasks::releaseLinkCachetool();
+            }
+        );
     }
 
     /**
@@ -196,5 +203,10 @@ class DeployTasks extends TaskAbstract
         $result = preg_replace('/[^A-Za-z0-9\.\-]/', '-', $result);
 
         return $result;
+    }
+
+    public static function releaseLinkCachetool()
+    {
+        \Deployer\run('ln -s {{cachetool_bin}} {{release_path}}/');
     }
 }
