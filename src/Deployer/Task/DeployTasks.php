@@ -16,6 +16,7 @@ class DeployTasks extends TaskAbstract
 {
     const TASK_INITIALIZE = 'deploy:initialize';
     const TASK_ROLLBACK = 'rollback'; // Overwriting the existing one
+    const TASK_LINKCACHETOOL = 'link:cachetool';
 
     public static function register()
     {
