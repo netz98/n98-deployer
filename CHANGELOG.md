@@ -4,6 +4,7 @@
 
 ## 4.1.0
 
+- add task to link cachetool to release (optional)
 - fixing an edge-case for multi-server deployments when it comes to creating release-pathes for environments that need the exact same release-path on each sever regardless of time-differences
 
 ## 4.0.0
