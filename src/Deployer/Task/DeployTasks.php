@@ -158,7 +158,13 @@ class DeployTasks extends TaskAbstract
             $releaseName = self::getUniqueReleaseName($release);
         } else {
             $releaseClean = self::cleanString($release);
-            $releaseName = $releaseClean . '-' . date('YmdHis');
+            $doUseTimestamp = (bool)\Deployer\get('release_name_usetimestamp');
+            if($doUseTimestamp) {
+                $releaseName = $releaseClean . '-' . date('YmdHis');
+            }
+            else {
+                $releaseName = self::getUniqueReleaseName($releaseClean . '-branch');
+            }
         }
 
         \Deployer\set('release_name', $releaseName);

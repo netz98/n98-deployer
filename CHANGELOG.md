@@ -2,6 +2,10 @@
 
 ## next
 
+## 4.1.0
+
+- fixing an edge-case for multi-server deployments when it comes to creating release-pathes for environments that need the exact same release-path on each sever regardless of time-differences
+
 ## 4.0.0
 
 - macOS switch added for proper `readlink` options handling
