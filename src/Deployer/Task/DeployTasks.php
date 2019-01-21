@@ -16,6 +16,7 @@ class DeployTasks extends TaskAbstract
 {
     const TASK_INITIALIZE = 'deploy:initialize';
     const TASK_ROLLBACK = 'rollback'; // Overwriting the existing one
+    const TASK_LINKCACHETOOL = 'link:cachetool';
 
     public static function register()
     {
@@ -31,6 +32,13 @@ class DeployTasks extends TaskAbstract
             'rollback to stable release previous to deploy',
             function () {
                 DeployTasks::rollback();
+            }
+        );
+        Deployer::task(
+            DeployTasks::TASK_LINKCACHETOOL, 
+            'Links cachetool to release, to re-use deployer cachetool recipe. Set {{cachetool_bin}} in your deploy.php to make it work',
+            function () {
+                DeployTasks::releaseLinkCachetool();
             }
         );
     }
@@ -151,7 +159,13 @@ class DeployTasks extends TaskAbstract
             $releaseName = self::getUniqueReleaseName($release);
         } else {
             $releaseClean = self::cleanString($release);
-            $releaseName = $releaseClean . '-' . date('YmdHis');
+            $doUseTimestamp = (bool)\Deployer\get('release_name_usetimestamp');
+            if($doUseTimestamp) {
+                $releaseName = $releaseClean . '-' . date('YmdHis');
+            }
+            else {
+                $releaseName = self::getUniqueReleaseName($releaseClean . '-branch');
+            }
         }
 
         \Deployer\set('release_name', $releaseName);
@@ -196,5 +210,10 @@ class DeployTasks extends TaskAbstract
         $result = preg_replace('/[^A-Za-z0-9\.\-]/', '-', $result);
 
         return $result;
+    }
+
+    public static function releaseLinkCachetool()
+    {
+        \Deployer\run('ln -s {{cachetool_bin}} {{release_path}}/');
     }
 }

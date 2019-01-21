@@ -78,6 +78,8 @@ class Magento2Recipe
         \Deployer\set('magento_build_artifacts', $artifacts);
 
         \Deployer\set('config_store_dir', '{{release_path}}/config/store');
+
+        \Deployer\set('release_name_usetimestamp', '0');
     }
 
     public static function tasks()
