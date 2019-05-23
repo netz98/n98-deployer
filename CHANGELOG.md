@@ -2,6 +2,10 @@
 
 ## next
 
+## 4.2.0
+
+- add task to stop and start the cron daemon (optional)
+
 ## 4.1.0
 
 - add task to link cachetool to release (optional)
