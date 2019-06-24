@@ -35,7 +35,7 @@ class DeployTasks extends TaskAbstract
             }
         );
         Deployer::task(
-            DeployTasks::TASK_LINKCACHETOOL, 
+            DeployTasks::TASK_LINKCACHETOOL,
             'Links cachetool to release, to re-use deployer cachetool recipe. Set {{cachetool_bin}} in your deploy.php to make it work',
             function () {
                 DeployTasks::releaseLinkCachetool();
@@ -160,10 +160,16 @@ class DeployTasks extends TaskAbstract
         } else {
             $releaseClean = self::cleanString($release);
             $doUseTimestamp = (bool)\Deployer\get('release_name_usetimestamp');
-            if($doUseTimestamp) {
+
+            // supposed to contain the build number or a timestamp created by the build pipeline instead of the build script
+            // e.g. \Deployer\set('unique_release_id', getenv('CI_JOB_ID'));
+            $uniqueReleaseId = (string)\Deployer\get('unique_release_id');
+
+            if (!empty($uniqueReleaseId)) {
+                $releaseName = $releaseClean . '-' . $uniqueReleaseId;
+            } elseif ($doUseTimestamp) {
                 $releaseName = $releaseClean . '-' . date('YmdHis');
-            }
-            else {
+            } else {
                 $releaseName = self::getUniqueReleaseName($releaseClean . '-branch');
             }
         }
