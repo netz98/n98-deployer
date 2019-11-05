@@ -194,8 +194,6 @@ class MagentoTasks extends TaskAbstract
 
     /**
      * Enable or Disable MagentoCache
-     *
-     * @param $enabled
      */
     public static function activateMagentoCache($enabled)
     {
@@ -207,8 +205,6 @@ class MagentoTasks extends TaskAbstract
 
     /**
      * Disable Magento FullPageCache
-     *
-     * @param $enabled
      */
     public static function disableMagentoFPC()
     {
