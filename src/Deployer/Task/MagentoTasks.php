@@ -83,7 +83,7 @@ class MagentoTasks extends TaskAbstract
         );
         Deployer::task(
             MagentoTasks::TASK_CACHE_CLEAR_CONFIG, 'Clear Magento Config Cache',
-            function () { MagentoTasks::clearMagentoConfig(); },
+            function () { MagentoTasks::clearMagentoConfigCache(); },
             ['db']
         );
         Deployer::task(
@@ -215,7 +215,7 @@ class MagentoTasks extends TaskAbstract
     /**
      * Clear Magento Config Cache
      */
-    public static function clearMagentoConfig()
+    public static function clearMagentoConfigCache()
     {
         \Deployer\cd('{{release_path_app}}');
         \Deployer\run("php bin/magento cache:clear config");
