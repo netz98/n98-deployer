@@ -33,13 +33,11 @@ class SystemTasks extends TaskAbstract
         );
         Deployer::task(
             self::TASK_CRON_STOP, 'Stop cron service',
-            function () { SystemTasks::stopCron(); },
-            ['staging', 'production']
+            function () { SystemTasks::stopCron(); }
         );
         Deployer::task(
             self::TASK_CRON_START, 'Start cron service',
-            function () { SystemTasks::startCron(); },
-            ['staging', 'production']
+            function () { SystemTasks::startCron(); }
         );
     }
 
