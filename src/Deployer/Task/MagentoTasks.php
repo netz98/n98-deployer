@@ -26,6 +26,7 @@ class MagentoTasks extends TaskAbstract
     const TASK_CACHE_DISABLE = 'magento:cache_disable';
     const TASK_CACHE_DISABLE_FPC = 'magento:cache_disable:fpc';
     const TASK_CACHE_CLEAR = 'magento:cache_clear';
+    const TASK_CACHE_CLEAR_CONFIG = 'magento:cache_clear_config';
 
     public static function register()
     {
@@ -78,6 +79,11 @@ class MagentoTasks extends TaskAbstract
         Deployer::task(
             MagentoTasks::TASK_CACHE_CLEAR, 'Clear Magento Cache',
             function () { MagentoTasks::flushMagentoCache(); },
+            ['db']
+        );
+        Deployer::task(
+            MagentoTasks::TASK_CACHE_CLEAR_CONFIG, 'Clear Magento Config Cache',
+            function () { MagentoTasks::clearMagentoConfigCache(); },
             ['db']
         );
         Deployer::task(
@@ -188,8 +194,6 @@ class MagentoTasks extends TaskAbstract
 
     /**
      * Enable or Disable MagentoCache
-     *
-     * @param $enabled
      */
     public static function activateMagentoCache($enabled)
     {
@@ -201,13 +205,20 @@ class MagentoTasks extends TaskAbstract
 
     /**
      * Disable Magento FullPageCache
-     *
-     * @param $enabled
      */
     public static function disableMagentoFPC()
     {
         \Deployer\cd('{{release_path_app}}');
         \Deployer\run("php bin/magento cache:disable full_page");
+    }
+
+    /**
+     * Clear Magento Config Cache
+     */
+    public static function clearMagentoConfigCache()
+    {
+        \Deployer\cd('{{release_path_app}}');
+        \Deployer\run("php bin/magento cache:clear config");
     }
 
     /**

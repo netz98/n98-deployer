@@ -1,6 +1,9 @@
 # CHANGELOG
 
-## next
+## 4.3.0
+
+- add task to stop and start the cron daemon (optional)
+- add task to clear the magento config cache
 
 ## 4.2.0
 
