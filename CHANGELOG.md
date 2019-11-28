@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.4.0
+
+- lets you use a different php version by using `putenv('PHP_BIN=/path/to/your/php')`
+
 ## 4.3.0
 
 - add task to stop and start the cron daemon (optional)

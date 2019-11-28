@@ -47,6 +47,7 @@ class N98Magento2Recipe extends Magento2Recipe
         \Deployer\set('webserver_group', 'www-data');
 
         \Deployer\set('phpfpm_service', 'php7.0-fpm');
+        \Deployer\set('php_bin', getenv('PHP_BIN') ?: 'php');
         \Deployer\set('nginx_service', 'nginx');
         \Deployer\set('cron_service', 'cron');
     }
