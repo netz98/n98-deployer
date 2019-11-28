@@ -103,7 +103,7 @@ class MagentoTasks extends TaskAbstract
         $maintenance = $enabled === true ? 'maintenance:enable' : 'maintenance:disable';
 
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run("php bin/magento $maintenance");
+        \Deployer\run(\Deployer\get('php_bin') . " bin/magento $maintenance");
     }
 
     /**
@@ -123,7 +123,7 @@ class MagentoTasks extends TaskAbstract
     public static function runSetupUpgrade()
     {
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run('php bin/magento setup:upgrade --keep-generated');
+        \Deployer\run(\Deployer\get('php_bin') . ' bin/magento setup:upgrade --keep-generated');
     }
 
     /**
@@ -162,7 +162,7 @@ class MagentoTasks extends TaskAbstract
         }
 
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run("php bin/magento config:data:import $dir $env");
+        \Deployer\run(\Deployer\get('php_bin') . " bin/magento config:data:import $dir $env");
     }
 
     /**
@@ -180,7 +180,7 @@ class MagentoTasks extends TaskAbstract
     public static function backupMagentoConfig()
     {
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run('php bin/magento config:data:export --filePerNameSpace=y --format=yaml --filename=config_backup/');
+        \Deployer\run(\Deployer\get('php_bin') . ' bin/magento config:data:export --filePerNameSpace=y --format=yaml --filename=config_backup/');
     }
 
     /**
@@ -189,7 +189,7 @@ class MagentoTasks extends TaskAbstract
     public static function importCmsData()
     {
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run('php bin/magento cms:import');
+        \Deployer\run(\Deployer\get('php_bin') . ' bin/magento cms:import');
     }
 
     /**
@@ -200,7 +200,7 @@ class MagentoTasks extends TaskAbstract
         $cache = $enabled === true ? 'cache:enable' : 'cache:disable';
 
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run("php bin/magento $cache");
+        \Deployer\run(\Deployer\get('php_bin') . " bin/magento $cache");
     }
 
     /**
@@ -209,7 +209,7 @@ class MagentoTasks extends TaskAbstract
     public static function disableMagentoFPC()
     {
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run("php bin/magento cache:disable full_page");
+        \Deployer\run(\Deployer\get('php_bin') . " bin/magento cache:disable full_page");
     }
 
     /**
@@ -218,7 +218,7 @@ class MagentoTasks extends TaskAbstract
     public static function clearMagentoConfigCache()
     {
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run("php bin/magento cache:clear config");
+        \Deployer\run(\Deployer\get('php_bin') . " bin/magento cache:clear config");
     }
 
     /**
@@ -227,7 +227,7 @@ class MagentoTasks extends TaskAbstract
     public static function flushMagentoCache()
     {
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run('php bin/magento cache:flush');
+        \Deployer\run(\Deployer\get('php_bin') . ' bin/magento cache:flush');
     }
 
     /**
