@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "deployer/deployer": "^6.0"
+        "deployer/deployer": "^7.0"
     },
     "autoload": {
         "psr-4": {
