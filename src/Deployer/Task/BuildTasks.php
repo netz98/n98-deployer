@@ -104,10 +104,19 @@ class BuildTasks extends TaskAbstract
      */
     protected static function uploadAndExtract($tarFile)
     {
+        $compression = \Deployer\get('artifacts_compression');
+        $tarOptions = '';
+
+        if ($compression === 'gz') {
+            $tarOptions = 'xfz';
+        } elseif ($compression === 'zstd') {
+            $tarOptions = '-I \'zstd -T0\' -xf';
+        }
+
         $releasePath = '{{release_path}}';
 
         \Deployer\upload("{{artifacts_dir}}/$tarFile", "$releasePath/$tarFile");
-        \Deployer\run("cd $releasePath; tar xfz $releasePath/$tarFile");
+        \Deployer\run("cd $releasePath; tar $tarOptions $releasePath/$tarFile");
         \Deployer\run("rm $releasePath/$tarFile");
     }
 

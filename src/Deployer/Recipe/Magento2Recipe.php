@@ -72,6 +72,8 @@ class Magento2Recipe
 
         \Deployer\set('artifacts_dir', 'artifacts');
 
+        \Deployer\set('artifacts_compression', 'gz');
+
         $artifacts = [
             'shop.tar.gz',
         ];
