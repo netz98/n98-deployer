@@ -123,7 +123,9 @@ class MagentoTasks extends TaskAbstract
     public static function runSetupUpgrade()
     {
         \Deployer\cd('{{release_path_app}}');
-        \Deployer\run(\Deployer\get('php_bin') . ' bin/magento setup:upgrade --no-interaction --keep-generated');
+        \Deployer\run(\Deployer\get('php_bin') . ' bin/magento setup:upgrade --no-interaction --keep-generated', [
+            'timeout' => \Deployer\get('magento_setup_upgrade_timeout', 300),
+        ]);
     }
 
     /**
